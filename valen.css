@@ -1,0 +1,7 @@
+.container{
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;     /* Centers content vertically */
+  /* Optional: ensure container has a defined height */
+    height: 100vh; 
+}

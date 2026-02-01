@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial initial-scale=1.0">
+    <title>Centered Card</title>
+    <style>
+        /* This ensures the body takes up the full height of the viewport */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex; /* Use flexbox on the body */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: #ebb4d5; /* Optional: a subtle background for contrast */
+        }
+
+        .card {
+            background-color: white; /* Set the background color to white */
+            width: 40vw; /* 1/4th of the viewport width */
+            height: 60vh; /* 1/4th of the viewport height */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add a subtle shadow for depth */
+            border-radius: 8px; /* Optional: rounded corners */
+            text-align: center; /* Center text and buttons inside the card */
+            
+            /* Optional: Make content inside the card look presentable */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .card p {
+            font-size: 1.2 rem;
+            color: #060606;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .display {
+            font-size: 1.2 rem;
+            color: #060606;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px; /* or any height */
+            object-fit: cover;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <p>Pallavi, will you be my valentine?.</p>
+        <div class="display">
+            <p>Yay! 🥳</p>
+            <p><img src = 'yes_gif.gif' class = 'card-image'></p>
+        </div>
+    </div>
+
+</body>
+</html>

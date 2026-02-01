@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial initial-scale=1.0">
+    <title>Centered Card</title>
+    <style>
+        /* This ensures the body takes up the full height of the viewport */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex; /* Use flexbox on the body */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: #ebb4d5; /* Optional: a subtle background for contrast */
+        }
+
+        .card {
+            background-color: white; /* Set the background color to white */
+            width: 40vw; /* 1/4th of the viewport width */
+            height: 60vh; /* 1/4th of the viewport height */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add a subtle shadow for depth */
+            border-radius: 8px; /* Optional: rounded corners */
+            text-align: center; /* Center text and buttons inside the card */
+            
+            /* Optional: Make content inside the card look presentable */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .card h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .card h1 img {
+            width: 7vw;
+            height: 80px;
+        }
+        .card p {
+            font-size: 1.2 rem;
+            color: #060606;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .card .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+
+        .card button.secondary {
+            background-color: #e9e9e9;
+            color: #333;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+        }
+        .card footer {
+            font-size: 0.8rem;
+            color: #555;
+            margin: 5px 10px;
+        }
+
+        /* General styling for the button */
+        .card button.heartbeat-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #c72306; /* Tomato color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out; /* Smooth transition for initial state */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+        }
+
+        /* Define the heartbeat animation */
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            14% {
+                transform: scale(1.1); /* First beat expansion */
+            }
+            28% {
+                transform: scale(1); /* Back to normal */
+            }
+            42% {
+                transform: scale(1.1); /* Second beat expansion */
+            }
+            70% {
+                transform: scale(1); /* Return to original size */
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Apply the animation when the button is hovered */
+        .heartbeat-btn {
+            /* Animation name, duration, timing function, and repetition count */
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1><img src = 'teddy.jpg'></h1>
+        <p>Pallavi, will you be my valentine?.</p>
+        <div class="button-container">
+            <button class="heartbeat-btn" onclick="window.location.href='Yes_page.html'">Yes</button>
+            <button Id="secondary">No</button>
+        </div>
+        <footer>"No" seems a bit shy!😈</footer>
+    </div>
+
+    <script>
+        // JavaScript for the interactive button movement
+        const interactiveButton = document.getElementById('secondary');
+        const card = document.querySelector('.card');
+
+        // Function to calculate a new random position within the card boundaries
+        function moveButton() {
+            const cardRect = card.getBoundingClientRect();
+            const buttonRect = interactiveButton.getBoundingClientRect();
+
+            // Calculate max movement range within the card
+            const maxX = cardRect.width - buttonRect.width;
+            const maxY = cardRect.height - buttonRect.height;
+
+            // Generate new random positions (relative to the card's top-left corner)
+            // Adjust to keep the button roughly centered in the card
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            // Apply the new position
+            // Use transform: translate() for smooth movement without affecting layout flow
+            interactiveButton.style.transform = `translate(${newX - maxX / 2}px, ${newY - maxY / 2}px)`;
+        }
+
+        // Add event listeners for when the mouse moves within the card (or gets close to the button)
+        // The event listener is attached to the whole document body for the best detection regardless of cursor position
+        document.body.addEventListener('mousemove', (event) => {
+            const buttonRect = interactiveButton.getBoundingClientRect();
+            
+            // Define a 'proximity zone' (e.g., 50px radius around the button)
+            const proximity = 75; 
+
+            // Check if the cursor is within the proximity zone of the button
+            if (event.clientX > buttonRect.left - proximity && 
+                event.clientX < buttonRect.right + proximity && 
+                event.clientY > buttonRect.top - proximity && 
+                event.clientY < buttonRect.bottom + proximity) {
+                
+                // If yes, move the button away
+                moveButton();
+            }
+        });
+        
+        // Also add an event listener specifically on the button for touch devices or direct hover
+        interactiveButton.addEventListener('mouseenter', moveButton);
+        interactiveButton.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior
+            moveButton();
+        });
+
+    </script>
+
+</body>
+</html>
